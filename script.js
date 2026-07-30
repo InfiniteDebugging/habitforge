@@ -40,7 +40,7 @@ function generatePDF() {
 
     // Header Section
     doc.setFont('Helvetica', 'bold');
-    doc.setFontSize.bind(doc)(22);
+    doc.setFontSize(22);
     doc.text('HABITFORGE', 54, 55);
 
     doc.setFont('Helvetica', 'normal');
@@ -49,9 +49,9 @@ function generatePDF() {
     doc.text(`Start Date: ${formattedDate}`, 54, 100);
     doc.text(`Target: ${totalDays}-Day Commitment`, 380, 80);
 
-    // Header separator line
+    // Header separator line (using setDrawColor correctly)
     doc.setLineWidth(1);
-    doc.setStrokeColor(200, 200, 200);
+    doc.setDrawColor(200, 200, 200);
     doc.line(54, 115, width - 54, 115);
 
     // Grid Layout Engine (15 items per row)
