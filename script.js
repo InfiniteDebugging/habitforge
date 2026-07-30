@@ -28,40 +28,44 @@ function generatePDF() {
         year: 'numeric'
     });
 
-    // Initialize jsPDF (Letter size: 612 x 792 pt)
+    // Initialize jsPDF in LANDSCAPE mode (Letter size: 792 x 612 pt)
     const { jsPDF } = window.jspdf;
     const doc = new jsPDF({
-        orientation: 'portrait',
+        orientation: 'landscape',
         unit: 'pt',
         format: 'letter'
     });
 
-    const width = 612;
+    const width = 792;
+    const height = 612;
 
     // Header Section
     doc.setFont('Helvetica', 'bold');
     doc.setFontSize(22);
-    doc.text('HABITFORGE', 54, 55);
+    doc.text('HABITFORGE', 54, 45);
 
     doc.setFont('Helvetica', 'normal');
     doc.setFontSize(11);
-    doc.text(`Goal: ${goal}`, 54, 80);
-    doc.text(`Start Date: ${formattedDate}`, 54, 100);
-    doc.text(`Target: ${totalDays}-Day Commitment`, 380, 80);
+    doc.text(`Goal: ${goal}`, 54, 70);
+    doc.text(`Start Date: ${formattedDate}`, 54, 90);
+    doc.text(`Target: ${totalDays}-Day Commitment`, 560, 70);
 
-    // Header separator line (using setDrawColor correctly)
+    // Header separator line
     doc.setLineWidth(1);
     doc.setDrawColor(200, 200, 200);
-    doc.line(54, 115, width - 54, 115);
+    doc.line(54, 105, width - 54, 105);
 
-    // Grid Layout Engine (15 items per row)
+    // Grid Layout Engine (Landscape: 15 items per row, dynamically spaced)
     const rows = totalDays / 15;
     const boxSize = 30;
-    const spacingX = 10;
-    const spacingY = 18;
-
     const startX = 54;
-    const startY = 165;
+    const endX = width - 54;
+    const availableWidth = endX - startX;
+    
+    // Spread the 15 boxes smoothly across the available landscape width
+    const spacingX = (availableWidth - (15 * boxSize)) / 14;
+    const spacingY = 18;
+    const startY = 135;
 
     let dayCounter = 1;
     for (let r = 0; r < rows; r++) {
@@ -90,12 +94,12 @@ function generatePDF() {
         }
     }
 
-    // Footer Instructions
+    // Footer Instructions (adjusted for landscape height of 612 pt)
     doc.setFont('Helvetica', 'italic');
     doc.setFontSize(9);
     doc.setTextColor(71, 85, 105);
-    doc.text('Instructions: Fill in a box every day you spend at least 30 minutes on your habit.', 54, 730);
-    doc.text('Shaded boxes mark major milestones (Day 30, 60, and 90). Keep going!', 54, 744);
+    doc.text('Instructions: Fill in a box every day you spend at least 30 minutes on your habit.', 54, 560);
+    doc.text('Shaded boxes mark major milestones (Day 30, 60, and 90). Keep going!', 54, 574);
 
     // Trigger PDF browser download
     doc.save(`habitforge_${totalDays}days.pdf`);
