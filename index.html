@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>HabitForge - Milestone Habit Tracker Generator</title>
+    <link rel="stylesheet" href="style.css">
+    <!-- jsPDF CDN -->
+    <script src="https://unpkg.com/jspdf@latest/dist/jspdf.umd.min.js"></script>
+</head>
+<body>
+    <div class="container">
+        <div class="logo-container">
+            <img src="logo.png" alt="HabitForge Logo" class="logo">
+        </div>
+        <h1>HabitForge</h1>
+        <p class="subtitle">Design and download your printable milestone habit tracker PDF.</p>
+        
+        <form id="trackerForm">
+            <div class="form-group">
+                <label for="goal">Habit Goal:</label>
+                <input type="text" id="goal" maxlength="40" placeholder="e.g., Read 30 mins, Workout, Code" required>
+            </div>
+
+            <div class="form-group">
+                <label for="startDate">Start Date:</label>
+                <input type="date" id="startDate" required>
+            </div>
+
+            <div class="form-group">
+                <label for="length">Duration (Days):</label>
+                <select id="length">
+                    <option value="30">30 Days</option>
+                    <option value="60">60 Days</option>
+                    <option value="90" selected>90 Days</option>
+                </select>
+            </div>
+
+            <button type="submit" id="generateBtn">Generate PDF Tracker</button>
+        </form>
+    </div>
+    <script src="script.js"></script>
+</body>
+</html>
