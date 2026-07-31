@@ -27,17 +27,23 @@ function generatePDF() {
         day: 'numeric',
         year: 'numeric'
     });
+    const pageSize = document.getElementById('pageSize').value; // 'letter' or 'a4'
 
+    
+   
     // Initialize jsPDF in LANDSCAPE mode (Letter size: 792 x 612 pt)
     const { jsPDF } = window.jspdf;
+    const pageSize = document.getElementById('pageSize').value; // 'letter' or 'a4'
+
     const doc = new jsPDF({
         orientation: 'landscape',
         unit: 'pt',
-        format: 'letter'
+        format: pageSize
     });
 
-    const width = 792;
-    const height = 612;
+    // Get the actual width dynamically from the document object instead of hardcoding 792
+    const width = doc.internal.pageSize.getWidth();
+    const height = doc.internal.pageSize.getHeight();
 
     // Header Section
     doc.setFont('Helvetica', 'bold');
