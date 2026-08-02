@@ -27,9 +27,6 @@ function generatePDF() {
         day: 'numeric',
         year: 'numeric'
     });
-    const pageSize = document.getElementById('pageSize').value; // 'letter' or 'a4'
-
-    
    
     // Initialize jsPDF in LANDSCAPE mode (Letter size: 792 x 612 pt)
     const { jsPDF } = window.jspdf;
